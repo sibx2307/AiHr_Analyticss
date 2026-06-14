@@ -1,3 +1,7 @@
+import os
+
+print("Current file:", __file__)
+print("Current working directory:", os.getcwd())
 import sys
 import os
 
@@ -26,9 +30,8 @@ engine = create_engine(
 # Employees
 # ----------------------
 
-employees = pd.read_csv(
-    "../data/employees.csv"
-)
+employees = pd.read_csv("data/employees.csv")
+
 
 errors = validate_csv(
     employees,
@@ -41,7 +44,7 @@ else:
     employees.to_sql(
         "employees",
         engine,
-        if_exists="append",
+        if_exists="replace",
         index=False
     )
 
@@ -52,7 +55,7 @@ else:
 # ----------------------
 
 attendance = pd.read_csv(
-    "../data/attendance.csv"
+    "data/attendance.csv"
 )
 
 errors = validate_csv(
@@ -73,7 +76,7 @@ else:
     attendance.to_sql(
         "attendance",
         engine,
-        if_exists="append",
+        if_exists="replace",
         index=False
     )
 
@@ -84,7 +87,7 @@ else:
 # ----------------------
 
 performance = pd.read_csv(
-    "../data/performance.csv"
+    "data/performance.csv"
 )
 
 errors = validate_csv(
@@ -104,7 +107,7 @@ else:
     performance.to_sql(
         "performance",
         engine,
-        if_exists="append",
+        if_exists="replace",
         index=False
     )
 

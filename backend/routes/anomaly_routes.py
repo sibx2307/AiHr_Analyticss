@@ -3,8 +3,8 @@ from sqlalchemy import create_engine
 from config import Config
 import pandas as pd
 
-attendance_bp = Blueprint(
-    "attendance_bp",
+anomaly_bp = Blueprint(
+    "anomaly_bp",
     __name__
 )
 
@@ -12,14 +12,14 @@ engine = create_engine(
     Config.DATABASE_URL
 )
 
-@attendance_bp.route(
-    "/attendance",
+@anomaly_bp.route(
+    "/anomalies",
     methods=["GET"]
 )
-def get_attendance():
+def get_anomalies():
 
     query = """
-    SELECT * FROM attendance
+    SELECT * FROM anomalies
     """
 
     df = pd.read_sql(

@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, Numeric, String
 from models.base import Base
 
 class Anomaly(Base):
+
     __tablename__ = "anomalies"
 
     id = Column(Integer, primary_key=True)
