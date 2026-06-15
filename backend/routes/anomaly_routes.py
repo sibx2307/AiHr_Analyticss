@@ -1,34 +1,19 @@
-from flask import Blueprint, jsonify
-from sqlalchemy import create_engine
-from config import Config
-import pandas as pd
+from flask import Blueprint
+from flask import jsonify
+
+from ml.anomaly_detection import (
+    detect_anomalies
+)
 
 anomaly_bp = Blueprint(
     "anomaly_bp",
     __name__
 )
 
-engine = create_engine(
-    Config.DATABASE_URL
-)
 
-@anomaly_bp.route(
-    "/anomalies",
-    methods=["GET"]
-)
+@anomaly_bp.route("/anomalies")
 def get_anomalies():
 
-    query = """
-    SELECT * FROM anomalies
-    """
+    results = detect_anomalies()
 
-    df = pd.read_sql(
-        query,
-        engine
-    )
-
-    return jsonify(
-        df.to_dict(
-            orient="records"
-        )
-    )
+    return jsonify(results)

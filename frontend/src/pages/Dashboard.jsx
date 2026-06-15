@@ -1,85 +1,71 @@
+import { useEffect, useState } from "react";
+import API from "../api/api";
+import Layout from "../components/Layout";
+
 function Dashboard() {
+
+    const [stats, setStats] = useState({
+        employees: 0,
+        attendance: 0,
+        performance: 0,
+        anomalies: 0
+    });
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
+    const fetchStats = async () => {
+
+        const response =
+            await API.get(
+                "/dashboard/stats"
+            );
+
+        setStats(
+            response.data
+        );
+    };
 
     return (
 
-        <div className="container mt-5">
+        <Layout>
 
-            <h1>
-                AI HR Analytics Dashboard
-            </h1>
+            <h2>Dashboard</h2>
 
-            <hr />
-
-            <div className="row">
+            <div className="row mt-4">
 
                 <div className="col-md-3">
-
                     <div className="card p-3">
-
-                        <h5>
-                            Employees
-                        </h5>
-
-                        <h2>
-                            150
-                        </h2>
-
+                        <h5>Total Employees</h5>
+                        <h2>{stats.employees}</h2>
                     </div>
-
                 </div>
 
                 <div className="col-md-3">
-
                     <div className="card p-3">
-
-                        <h5>
-                            Attendance
-                        </h5>
-
-                        <h2>
-                            94%
-                        </h2>
-
+                        <h5>Attendance %</h5>
+                        <h2>{stats.attendance}%</h2>
                     </div>
-
                 </div>
 
                 <div className="col-md-3">
-
                     <div className="card p-3">
-
-                        <h5>
-                            Performance
-                        </h5>
-
-                        <h2>
-                            4.2
-                        </h2>
-
+                        <h5>Performance</h5>
+                        <h2>{stats.performance}</h2>
                     </div>
-
                 </div>
 
                 <div className="col-md-3">
-
                     <div className="card p-3">
-
-                        <h5>
-                            Anomalies
-                        </h5>
-
-                        <h2>
-                            7
-                        </h2>
-
+                        <h5>Anomalies</h5>
+                        <h2>{stats.anomalies}</h2>
                     </div>
-
                 </div>
 
             </div>
 
-        </div>
-
+        </Layout>
     );
 }
 

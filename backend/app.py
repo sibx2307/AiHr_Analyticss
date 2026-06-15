@@ -4,12 +4,13 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 from routes.auth_routes import auth_bp
+from routes.upload_routes import upload_bp
 
 from routes.employee_routes import employee_bp
 from routes.attendance_routes import attendance_bp
 from routes.performance_routes import performance_bp
 from routes.anomaly_routes import anomaly_bp
-
+from routes.dashboard_routes import dashboard_bp
 app = Flask(__name__)
 
 app.config["JWT_SECRET_KEY"] = "super-secret-key"
@@ -28,6 +29,9 @@ app.register_blueprint(performance_bp)
 
 app.register_blueprint(anomaly_bp)
 
+app.register_blueprint(dashboard_bp)
+
+app.register_blueprint(upload_bp)
 
 @app.route("/")
 def home():
